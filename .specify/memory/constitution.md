@@ -1,50 +1,124 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!-- Sync Impact Report
+Version change: 0.0.0 (uninitialized) → 1.0.0 (MAJOR — initial ratification)
+Modified principles: N/A (first version)
+Added sections:
+  - Principle I: Best Practice Implementation
+  - Principle II: Code Quality First
+  - Principle III: Test Coverage Standards
+  - Principle IV: Commit Standards
+  - Principle V: Simple & Maintainable
+  - Principle VI: No Deprecated Dependencies
+  - Development Workflow
+  - Governance
+Removed sections: None
+Templates requiring updates:
+  - .specify/templates/plan-template.md ✅ no changes needed (Constitution Check section is generic)
+  - .specify/templates/spec-template.md ✅ no changes needed (no constitution-specific references)
+  - .specify/templates/tasks-template.md ✅ no changes needed (task structure compatible)
+Follow-up TODOs: None
+-->
+
+# VDrawer Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Best Practice Implementation
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+All features MUST follow Web/frontend development best practices or
+widely recognized architectural patterns. This includes but is not
+limited to: responsive design, accessibility standards, semantic
+markup, proper separation of concerns, and framework-recommended
+patterns. Deviation from established best practices MUST be
+justified in the implementation plan's Complexity Tracking section.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### II. Code Quality First
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+All code MUST pass quality gates before being committed. Quality
+gates include:
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+- **Logic error checks**: No known logic defects in committed code
+- **Performance optimization**: No unnecessary re-renders, redundant
+  computations, or memory leaks
+- **Memory leak detection**: Event listeners, timers, and
+  subscriptions MUST be properly cleaned up
+- **Static analysis**: Linting and type checking MUST pass with
+  zero errors
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+Each commit MUST demonstrate that these checks have passed.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### III. Test Coverage Standards
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+Testing requirements by category:
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+- **Core business logic** (voice instruction parsing, drawing
+  execution engine, state management): MUST achieve ≥80% unit test
+  coverage. Critical paths MUST achieve 100% coverage.
+- **Functional modules** (instruction decomposition, voice-to-
+  drawing mapping): MUST have unit tests written.
+- **UI tests**: MUST cover primary user flows to ensure pure-voice
+  operation interactions are reliable.
+
+### IV. Commit Standards
+
+All Git commits MUST follow Conventional Commits specification:
+
+- `feat:` — New features (e.g., new voice instruction parsing)
+- `fix:` — Bug fixes
+- `docs:` — Documentation updates (design docs, instruction
+  support notes)
+- `test:` — Test-related changes
+
+Co-author metadata (e.g., `Co-Authored-By` trailers) MUST NOT be
+included in commit messages.
+
+### V. Simple & Maintainable
+
+Functional modules MUST follow single responsibility:
+
+- **Voice recognition**, **instruction parsing**, and **drawing
+  execution** modules MUST be separated.
+- Prefer composition, event-driven design, or modular patterns
+  over complex inheritance or deep nesting.
+- Apply YAGNI principle: implement only currently required
+  instruction features. Avoid over-engineering.
+
+### VI. No Deprecated Dependencies
+
+All APIs, libraries, and language features used MUST be actively
+maintained and not deprecated. Before adding a dependency, verify
+its maintenance status and deprecation timeline.
+
+## Development Workflow
+
+### Quality Gate Sequence
+
+1. Lint and type-check pass
+2. Unit tests pass with required coverage
+3. Integration/UI tests pass for affected user flows
+4. Manual verification of voice interaction paths (when applicable)
+
+### Module Boundaries
+
+Voice recognition, instruction parsing, and drawing execution
+modules MUST communicate through well-defined interfaces. Direct
+cross-module state mutation is prohibited.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution supersedes all other development practices for
+the VDrawer project. Amendments MUST:
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+1. Be documented with rationale
+2. Update the version number following semantic versioning:
+   - MAJOR: Backward-incompatible governance/principle removals
+     or redefinitions
+   - MINOR: New principle/section added or materially expanded
+   - PATCH: Clarifications, wording, typo fixes
+3. Propagate changes to dependent templates (plan, spec, tasks)
+4. Include a Sync Impact Report as an HTML comment at the top
+   of this file
+
+Compliance reviews MUST occur during plan Constitution Check
+gates and during code review.
+
+**Version**: 1.0.0 | **Ratified**: 2026-06-12 | **Last Amended**: 2026-06-12
